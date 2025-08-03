@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>现代HTML全方位入门教程</title>
+    
+    <style>
+        /* 全局样式 */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.7;
+            color: #333;
+            background-color: #f8f9fa;
+            margin: 0;
+        }
+
+        /* 导航侧边栏 */
+        .sidebar {
+            width: 240px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background-color: #343a40;
+            color: white;
+            padding: 20px;
+            overflow-y: auto;
+            box-sizing: border-box;
+        }
+        .sidebar h2 {
+            margin-top: 0;
+            border-bottom: 1px solid #495057;
+            padding-bottom: 10px;
+            font-size: 1.2em;
+        }
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .sidebar li a {
+            color: #adb5bd;
+            text-decoration: none;
+            display: block;
+            padding: 8px 0;
+            transition: color 0.2s;
+        }
+        .sidebar li a:hover, .sidebar li a.active {
+            color: #ffffff;
+        }
+
+        /* 主内容区域 */
+        .main-content {
+            margin-left: 260px; /* 侧边栏宽度 + 间距 */
+            padding: 20px 40px;
+        }
+
+        /* 章节标题 */
+        h1, h2, h3, h4 {
+            color: #212529;
+            font-weight: 600;
+        }
+        h1 {
+            border-bottom: 2px solid #dee2e6;
+            padding-bottom: 10px;
+        }
+        h2 {
+            margin-top: 40px;
+            border-bottom: 1px solid #e9ecef;
+            padding-bottom: 8px;
+        }
+        h2:first-of-type {
+            margin-top: 0;
+        }
+        h3 {
+            margin-top: 30px;
+        }
+
+        /* 代码展示块 */
+        pre {
+            background-color: #282c34;
+            color: #abb2bf;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        code {
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+        }
+        /* 行内代码 */
+        p > code, li > code, td > code {
+            background-color: #e9ecef;
+            color: #c7254e;
+            padding: 2px 5px;
+            border-radius: 4px;
+        }
+
+        /* 示例演示容器 */
+        .demo-box {
+            border: 1px solid #dee2e6;
+            padding: 20px;
+            margin-top: 15px;
+            border-radius: 8px;
+            background-color: #ffffff;
+        }
+
+        /* 表格样式 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f8f9fa;
+        }
+
+        /* 表单元素样式 */
+        input[type="text"], input[type="password"], input[type="email"], input[type="number"], input[type="date"], select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            box-sizing: border-box; /* 重要 */
+        }
+        button, input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover, input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        fieldset {
+            border: 1px solid #ced4da;
+            padding: 15px;
+            border-radius: 4px;
+        }
+        legend {
+            font-weight: bold;
+            padding: 0 10px;
+        }
+
+        /* 语义化布局示例样式 */
+        .semantic-layout-example { border: 2px solid #333; }
+        .semantic-layout-example header { background-color: #add8e6; padding: 10px; text-align: center;}
+        .semantic-layout-example nav { background-color: #90ee90; padding: 10px; text-align: center;}
+        .semantic-layout-example main { background-color: #f0e68c; padding: 20px; }
+        .semantic-layout-example article { background-color: #fff; padding: 15px; margin-bottom: 10px; border: 1px dashed #ccc;}
+        .semantic-layout-example aside { background-color: #dda0dd; padding: 10px; float: right; width: 30%; box-sizing: border-box;}
+        .semantic-layout-example footer { background-color: #d3d3d3; padding: 10px; text-align: center; clear: both;}
+
+        /* Dialog 模态框样式 */
+        dialog {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 400px;
+        }
+        dialog::backdrop {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <h2>HTML 教程目录</h2>
+        <ul>
+            <li><a href="#section-1">1. 基础结构</a></li>
+            <li><a href="#section-2">2. 文本元素</a></li>
+            <li><a href="#section-3">3. 链接与媒体</a></li>
+            <li><a href="#section-4">4. 列表</a></li>
+            <li><a href="#section-5">5. 表格</a></li>
+            <li><a href="#section-6">6. 表单与输入</a></li>
+            <li><a href="#section-7">7. 页面布局与语义化</a></li>
+            <li><a href="#section-8">8. 交互式高级元素</a></li>
+            <li><a href="#section-9">9. 杂项与内联元素</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <h1>现代HTML全方位入门教程</h1>
+        <p>欢迎来到HTML学习之旅！HTML (HyperText Markup Language) 是构建网页内容的骨架。本教程将带你领略从基础到高级的各类HTML标签和概念。</p>
+
+        <h2 id="section-1">1. HTML 基础结构</h2>
+        <p>每个HTML文档都遵循一个基本的结构，由 <code>&lt;!DOCTYPE&gt;</code>, <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code>, 和 <code>&lt;body&gt;</code> 标签组成。</p>
+        <ul>
+            <li><code>&lt;!DOCTYPE html&gt;</code>: 声明文档类型，告诉浏览器这是一个HTML5文档。</li>
+            <li><code>&lt;html&gt;</code>: 根元素，包裹整个页面内容。</li>
+            <li><code>&lt;head&gt;</code>: 包含页面的元信息，如标题(<code>&lt;title&gt;</code>)、字符集(<code>&lt;meta charset="UTF-8"&gt;</code>)、样式(<code>&lt;style&gt;</code>)、脚本(<code>&lt;script&gt;</code>)等，这部分内容不会在页面上直接显示。</li>
+            <li><code>&lt;body&gt;</code>: 包含页面的所有可见内容，如文本、图片、链接、表格等。</li>
+        </ul>
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="zh-CN"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;我的第一个网页&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;你好，世界！&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+        <h2 id="section-2">2. 核心文本元素</h2>
+
+        <h3>标题 (h1-h6)</h3>
+        <p>标题标签用于定义内容的层级结构，<code>&lt;h1&gt;</code> 是最重要的标题，<code>&lt;h6&gt;</code> 是最不重要的。</p>
+        <div class="demo-box">
+            <h1>一级标题</h1>
+            <h2>二级标题</h2>
+            <h3>三级标题</h3>
+            <h4>四级标题</h4>
+            <h5>五级标题</h5>
+            <h6>六级标题</h6>
+        </div>
+
+        <h3>段落与换行</h3>
+        <p><code>&lt;p&gt;</code> 标签定义一个段落。浏览器会自动在段落前后添加一些空白。<code>&lt;br&gt;</code> 标签用于在文本中强制换行。</p>
+        <div class="demo-box">
+            <p>这是一个段落。它包含了多行文字，浏览器会根据窗口大小自动排列。</p>
+            <p>这是另一个段落。<br>我们在这里使用了一个换行标签。</p>
+        </div>
+
+        <h3>文本格式化</h3>
+        <p>这些标签用于赋予文本特殊的含义或样式。</p>
+        <div class="demo-box">
+            <p><strong>&lt;strong&gt; (重要文本)</strong></p>
+            <p><em>&lt;em&gt; (强调文本)</em></p>
+            <p><b>&lt;b&gt; (无特殊含义的加粗)</b></p>
+            <p><i>&lt;i&gt; (无特殊含义的斜体)</i></p>
+            <p><u>&lt;u&gt; (带下划线的文本)</u></p>
+            <p><s>&lt;s&gt; (带删除线的文本)</s></p>
+            <p>水的化学式是 H<sub>2</sub>O (使用 <code>&lt;sub&gt;</code>)。</p>
+            <p>2<sup>4</sup> = 16 (使用 <code>&lt;sup&gt;</code>)。</p>
+            <p>这段文字被<mark>高亮</mark>了 (使用 <code>&lt;mark&gt;</code>)。</p>
+        </div>
+
+        <h3>预格式化文本与引用</h3>
+        <div class="demo-box">
+            <p><code>&lt;pre&gt;</code> 标签可以保留文本中的空格和换行符：</p>
+            <pre>
+    *
+   ***
+  *****
+ *******
+            </pre>
+            <p><code>&lt;blockquote&gt;</code> 用于定义长的引用块：</p>
+            <blockquote>
+                <p>学而时习之，不亦说乎？有朋自远方来，不亦乐乎？</p>
+                <cite>— 论语</cite>
+            </blockquote>
+        </div>
+
+        <h2 id="section-3">3. 链接与媒体</h2>
+
+        <h3>超链接 (a)</h3>
+        <p><code>&lt;a&gt;</code> 标签用于创建链接。<code>href</code> 属性指定链接的目标地址。<code>target="_blank"</code> 会在新窗口中打开链接。</p>
+        <div class="demo-box">
+            <a href="https://www.google.com" target="_blank">点我打开 Google (新窗口)</a>
+            <br>
+            <a href="#section-1">点我跳转到本页的“基础结构”部分</a>
+        </div>
+
+        <h3>图片 (img)</h3>
+        <p><code>&lt;img&gt;</code> 标签用于嵌入图片。<code>src</code> 是图片地址，<code>alt</code> 是图片的替代文本（在图片无法显示时出现，对SEO和可访问性很重要）。</p>
+        <div class="demo-box">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/PNG_Test.png/479px-PNG_Test.png" alt="一个PNG图片示例" width="300">
+        </div>
+
+        <h3>音频与视频</h3>
+        <p><code>&lt;audio&gt;</code> 和 <code>&lt;video&gt;</code> 标签用于嵌入音频和视频。<code>controls</code> 属性会显示播放控件。</p>
+        <div class="demo-box">
+            <h4>音频</h4>
+            <audio controls src="https://www.w3schools.com/html/horse.mp3">您的浏览器不支持 audio 标签。</audio>
+            <h4>视频</h4>
+            <video controls width="400" src="https://www.w3schools.com/html/mov_bbb.mp4">您的浏览器不支持 video 标签。</video>
+        </div>
+        
+        <h2 id="section-4">4. 列表</h2>
+
+        <h3>无序列表 (ul)</h3>
+        <div class="demo-box">
+            <ul>
+                <li>苹果</li>
+                <li>香蕉</li>
+                <li>橙子</li>
+            </ul>
+        </div>
+        
+        <h3>有序列表 (ol)</h3>
+        <div class="demo-box">
+            <ol>
+                <li>第一步：打开冰箱</li>
+                <li>第二步：把大象放进去</li>
+                <li>第三步：关上冰箱</li>
+            </ol>
+        </div>
+        
+        <h3>定义列表 (dl)</h3>
+        <div class="demo-box">
+            <dl>
+                <dt>HTML</dt>
+                <dd>超文本标记语言，用于创建网页结构。</dd>
+                <dt>CSS</dt>
+                <dd>层叠样式表，用于为网页添加样式。</dd>
+            </dl>
+        </div>
+
+        <h2 id="section-5">5. 表格</h2>
+        <p><code>&lt;table&gt;</code> 用于创建表格。<code>&lt;tr&gt;</code> 定义行，<code>&lt;th&gt;</code> 定义表头单元格，<code>&lt;td&gt;</code> 定义数据单元格。</p>
+        <div class="demo-box">
+            <table>
+                <thead>
+                    <tr>
+                        <th>姓名</th>
+                        <th>学科</th>
+                        <th>分数</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>张三</td>
+                        <td>数学</td>
+                        <td>95</td>
+                    </tr>
+                    <tr>
+                        <td>李四</td>
+                        <td>语文</td>
+                        <td>88</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2">总计</td>
+                        <td>183</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <h2 id="section-6">6. 表单与输入</h2>
+        <p>表单 (<code>&lt;form&gt;</code>) 用于收集用户输入。</p>
+        <div class="demo-box">
+            <form action="#" method="post">
+                <fieldset>
+                    <legend>用户信息</legend>
+                    
+                    <label for="username">用户名:</label>
+                    <input type="text" id="username" name="username" required>
+
+                    <label for="password">密码:</label>
+                    <input type="password" id="password" name="password" required>
+
+                    <label for="email">邮箱:</label>
+                    <input type="email" id="email" name="email">
+
+                    <label for="birthdate">出生日期:</label>
+                    <input type="date" id="birthdate" name="birthdate">
+                    
+                    <p>性别:</p>
+                    <input type="radio" id="male" name="gender" value="male">
+                    <label for="male">男</label>
+                    <input type="radio" id="female" name="gender" value="female">
+                    <label for="female">女</label>
+
+                    <p>兴趣爱好:</p>
+                    <input type="checkbox" id="coding" name="hobby" value="coding">
+                    <label for="coding">编程</label>
+                    <input type="checkbox" id="reading" name="hobby" value="reading">
+                    <label for="reading">阅读</label>
+
+                    <label for="city">所在城市:</label>
+                    <select id="city" name="city">
+                        <option value="beijing">北京</option>
+                        <option value="shanghai" selected>上海</option>
+                        <option value="guangzhou">广州</option>
+                    </select>
+
+                    <label for="bio">个人简介:</label>
+                    <textarea id="bio" name="bio" rows="4"></textarea>
+
+                    <button type="submit">提交</button>
+                </fieldset>
+            </form>
+        </div>
+
+        <h2 id="section-7">7. 页面布局与语义化</h2>
+        <p>语义化标签让页面结构更清晰，有助于SEO和可访问性。</p>
+        <ul>
+            <li><code>&lt;header&gt;</code>: 页面或区域的头部。</li>
+            <li><code>&lt;nav&gt;</code>: 导航链接。</li>
+            <li><code>&lt;main&gt;</code>: 页面的主要内容。</li>
+            <li><code>&lt;section&gt;</code>: 文档中的一个独立区域。</li>
+            <li><code>&lt;article&gt;</code>: 独立的、完整的内容块，如一篇博客文章。</li>
+            <li><code>&lt;aside&gt;</code>: 侧边栏内容。</li>
+            <li><code>&lt;footer&gt;</code>: 页面或区域的底部。</li>
+            <li><code>&lt;div&gt;</code>: 通用块级容器，当没有更合适的语义化标签时使用。</li>
+        </ul>
+        <div class="demo-box">
+            <h4>典型页面布局示例 (使用CSS着色以区分)</h4>
+            <div class="semantic-layout-example">
+                <header>&lt;header&gt; (页眉)</header>
+                <nav>&lt;nav&gt; (导航)</nav>
+                <main>
+                    &lt;main&gt; (主内容)
+                    <article>&lt;article&gt; (文章1)</article>
+                    <article>&lt;article&gt; (文章2)</article>
+                </main>
+                <footer>&lt;footer&gt; (页脚)</footer>
+            </div>
+        </div>
+
+        <h2 id="section-8">8. 交互式高级元素</h2>
+
+        <h3>可折叠区域 (details/summary)</h3>
+        <p>无需JavaScript即可创建手风琴/折叠效果。</p>
+        <div class="demo-box">
+            <details>
+                <summary>点击查看更多信息</summary>
+                <p>这里是隐藏的详细内容。这个功能是HTML5原生支持的，非常方便。</p>
+            </details>
+        </div>
+
+        <h3>对话框/模态框 (dialog)</h3>
+        <p><code>&lt;dialog&gt;</code> 标签可以创建原生的模态对话框，通常需要少量JavaScript来控制显示和隐藏。</p>
+        <div class="demo-box">
+            <button id="show-dialog-btn">打开对话框</button>
+            <dialog id="my-dialog">
+                <h3>这是一个模态对话框</h3>
+                <p>你可以按 "ESC" 键或点击下面的按钮关闭它。</p>
+                <button id="close-dialog-btn">关闭</button>
+            </dialog>
+        </div>
+
+        <h3>进度条与度量器</h3>
+        <div class="demo-box">
+            <p><code>&lt;progress&gt;</code> 用于表示任务的完成进度。</p>
+            <label for="task-progress">任务进度:</label>
+            <progress id="task-progress" value="70" max="100"> 70% </progress>
+            <p><code>&lt;meter&gt;</code> 用于表示在已知范围内的度量值。</p>
+            <label for="disk-usage">磁盘使用率:</label>
+            <meter id="disk-usage" min="0" max="100" low="30" high="75" optimum="10" value="85">85/100</meter>
+        </div>
+
+        <h2 id="section-9">9. 杂项与内联元素</h2>
+        <h3>水平分割线 (hr)</h3>
+        <p><code>&lt;hr&gt;</code> 标签用于创建一条水平线，表示内容主题的转换。</p>
+        <div class="demo-box">
+            <p>这是第一部分内容。</p>
+            <hr>
+            <p>这是第二部分内容。</p>
+        </div>
+
+        <h3>通用内联容器 (span)</h3>
+        <p><code>&lt;span&gt;</code> 是一个内联容器，用于包裹一小部分文本或文档内容，通常用于通过CSS施加样式，而不会像<code>&lt;div&gt;</code>那样产生换行。</p>
+        <div class="demo-box">
+            <p>这段话里有<span style="color: red; font-weight: bold;">一些特殊</span>的文字。</p>
+        </div>
+    </div>
+    
+    <script>
+        // Dialog 模态框的控制逻辑
+        const showDialogBtn = document.getElementById('show-dialog-btn');
+        const closeDialogBtn = document.getElementById('close-dialog-btn');
+        const myDialog = document.getElementById('my-dialog');
+
+        showDialogBtn.addEventListener('click', () => {
+            myDialog.showModal(); // showModal() 会显示对话框并添加背景遮罩
+        });
+
+        closeDialogBtn.addEventListener('click', () => {
+            myDialog.close();
+        });
+    </script>
+
+</body>
+</html>
